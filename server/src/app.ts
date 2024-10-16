@@ -1,6 +1,5 @@
-let saludo:String
-let numero:Number
+import {config} from 'dotenv'
+config()
 
-saludo = 'hola mundo'
-numero = 11
-console.log(saludo, " ", numero)
+
+
