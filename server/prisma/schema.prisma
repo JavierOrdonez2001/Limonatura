@@ -11,21 +11,21 @@ datasource db {
 
 
 model Roles {
-  idRol     String @id @default(uuid())
+  idRol     String @id 
   rol       String @unique 
   usuario   Usuarios[]
 }
 
 
 model Usuarios{
-  idUsuario                   String  @id @default(uuid())
+  idUsuario                   String  @id 
   nombre                      String 
   rut                         String  @unique
   email                       String  @unique
   password                    String
   telefono                    String  @unique
   id_rol_fk                   String  @unique
-  id_direccion_fk             String  @unique
+  id_direccion_fk             String  
   rol                         Roles             @relation(fields: [id_rol_fk], references: [idRol])
   usuario_direccion           Direcciones       @relation(fields: [id_direccion_fk], references: [idDirecciones])
   carrito                     Carrito[]
@@ -34,26 +34,25 @@ model Usuarios{
 
 
 model Direcciones {
-  idDirecciones             String @id @default(uuid())
+  idDirecciones             String @id 
   pais                      String 
   ciudad                    String
   comuna                    String
   calle                     String
   numero                    String 
-  id_usuario_direccion_fk   String
   usuario                   Usuarios[]
 }
 
 
 model Carrito{
-  idCarrito           String @id @default(uuid())
+  idCarrito           String @id 
   id_usuario_fk       String @unique
   usuario             Usuarios @relation(fields: [id_usuario_fk], references: [idUsuario])
   producto            Productos[]
 }
 
 model Productos {
-  idProducto        String    @id @default(uuid())
+  idProducto        String    @id 
   numero_producto   String    @unique
   tipo              String
   descripcion       String
