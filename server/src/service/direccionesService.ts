@@ -9,7 +9,7 @@ class DireccionesServices{
         private createRepo:IcreateActions<Direcciones>,
         private updateRepo:IupdateActions<Direcciones>
     ){}
-
+ 
     public async createDirecciones(item:Direcciones){
         return this.createRepo.create(item)
     }

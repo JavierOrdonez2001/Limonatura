@@ -15,8 +15,4 @@ export interface IcreateActions<T>{
 } 
 
 
-export interface IsaludoMessage{
-
-   saludo(message:string): string;
-}
 

@@ -8,28 +8,26 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         this.prisma = new PrismaClient
     }
 
-    public async create(item: { idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null }): Promise<{ idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null }> {
+    public async create(item: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso:number | null; }> {
         const newProducto = await this.prisma.productos.create({
             data:{
                 idProducto:item.idProducto,
-                numero_producto:item.numero_producto,
                 tipo:item.tipo,
                 descripcion:item.descripcion,
                 precio:item.precio,
                 stock:item.stock,
-                peso_kg:item.peso_kg,
-                id_carrito_fk:item.id_carrito_fk
+                peso:item.peso,
             }            
         })
         return newProducto
     }
 
-    public async findAll(): Promise<{ idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null }[]> {
+    public async findAll(): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; }[]> {
         const productos = await this.prisma.productos.findMany()
         return productos
     }
 
-    public async findOne(id: string): Promise<{ idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null } | null> {
+    public async findOne(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  } | null> {
         const productoById = await this.prisma.productos.findUnique({
             where:{
                 idProducto:id
@@ -38,7 +36,7 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         return productoById
     }
 
-    public async delete(id: string): Promise<{ idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null } | null> {
+    public async delete(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; } | null> {
         const deletedProducto = await this.prisma.productos.delete({
             where:{
                 idProducto:id
@@ -47,20 +45,18 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         return deletedProducto
     }
 
-    public async update(id: string, items: { idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null }): Promise<{ idProducto: string; numero_producto: string; tipo: string; descripcion: string; precio: Decimal; stock: number; peso_kg: number | null; id_carrito_fk: string | null }> {
+    public async update(id: string, items: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; }> {
         const updatedProducto = await this.prisma.productos.update({
             where:{
                 idProducto:id
             },
             data:{
                 idProducto:items.idProducto,
-                numero_producto:items.numero_producto,
                 tipo:items.tipo,
                 descripcion:items.descripcion,
                 precio:items.precio,
                 stock:items.stock,
-                peso_kg:items.peso_kg,
-                id_carrito_fk:items.id_carrito_fk
+                peso:items.peso,
             }
         })
         return updatedProducto

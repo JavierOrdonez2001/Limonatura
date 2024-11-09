@@ -24,7 +24,7 @@ model Usuarios{
   email                       String  @unique
   password                    String
   telefono                    String  @unique
-  id_rol_fk                   String  @unique
+  id_rol_fk                   String  
   id_direccion_fk             String  
   rol                         Roles             @relation(fields: [id_rol_fk], references: [idRol])
   usuario_direccion           Direcciones       @relation(fields: [id_direccion_fk], references: [idDirecciones])
@@ -47,19 +47,18 @@ model Direcciones {
 model Carrito{
   idCarrito           String @id 
   id_usuario_fk       String @unique
+  id_producto_fk      String?
   usuario             Usuarios @relation(fields: [id_usuario_fk], references: [idUsuario])
-  producto            Productos[]
+  producto            Productos? @relation(fields: [id_producto_fk], references: [idProducto])
+  
 }
 
 model Productos {
   idProducto        String    @id 
-  numero_producto   String    @unique
   tipo              String
   descripcion       String
   precio            Decimal   @default(0.00)
   stock             Int
-  peso_kg           Int?
-  id_carrito_fk     String?
-  carrito           Carrito? @relation(fields: [id_carrito_fk], references: [idCarrito])
- 
+  peso              Int?
+  carrito           Carrito[]
 }

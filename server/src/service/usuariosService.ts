@@ -1,11 +1,13 @@
 import {IcreateActions,IreadActions,IupdateActions} from "../interfaces/CRUDinterface.js"
+import {IshowAllUser} from "../interfaces/usuarioInterface.js"
 import {Usuarios} from "@prisma/client"
 
 class UsuariosService{
     constructor(
         private readRepo: IreadActions<Usuarios>,
         private createRepo: IcreateActions<Usuarios>,
-        private updateRepo: IupdateActions<Usuarios>
+        private updateRepo: IupdateActions<Usuarios>,
+        private showAllUserRepo: IshowAllUser<Usuarios>
     ){}
 
     public async createUsuarios(item:Usuarios){
@@ -27,6 +29,10 @@ class UsuariosService{
     public async deleteUsuarios(id:string){
       return this.updateRepo.delete(id)
     }
-}
 
+    public async showAllUser(id:string){
+        return this.showAllUserRepo.showAllUser(id)
+    }
+}
+ 
 export default UsuariosService

@@ -14,7 +14,9 @@ class RolesRepository implements IcreateActions<Roles>, IupdateActions<Roles>, I
 
     public async findOne(idRolol: string): Promise<{ idRol: string; rol: string; } | null> {
         const rolUnique = this.prisma.roles.findUnique({
-            where:{ idRol:idRolol }
+            where:{
+                idRol:idRolol
+            }
         })
         return rolUnique
     }

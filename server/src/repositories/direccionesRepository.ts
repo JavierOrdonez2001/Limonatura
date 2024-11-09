@@ -20,7 +20,7 @@ class DireccionesRepository implements IcreateActions<Direcciones>, IreadActions
                 numero:item.numero,
             }
         })
-        return newDirections
+        return newDirections 
     }
 
     public async findAll(): Promise<{ idDirecciones: string; pais: string; ciudad: string; comuna: string; calle: string; numero: string; }[]> {
@@ -61,7 +61,6 @@ class DireccionesRepository implements IcreateActions<Direcciones>, IreadActions
                 numero:items.numero,
             }
         })
-
         return updatedDireccion
     }
 }

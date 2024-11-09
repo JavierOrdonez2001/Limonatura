@@ -1,8 +1,9 @@
 import {IcreateActions,IreadActions,IupdateActions} from "../interfaces/CRUDinterface.js"
+import { IshowAllUser } from "../interfaces/usuarioInterface.js"
 import { PrismaClient, Usuarios } from "@prisma/client"
 
 
-class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuarios>, IupdateActions<Usuarios>{
+class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuarios>, IupdateActions<Usuarios>, IshowAllUser<Usuarios>{
     private prisma:PrismaClient
     constructor(){
         this.prisma = new PrismaClient
@@ -65,8 +66,21 @@ class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuar
         })
         return updatedUsuario
     }
+
+    public async showAllUser(id: string): Promise<{ idUsuario: string; nombre: string; rut: string; email: string; password: string; telefono: string; id_rol_fk: string; id_direccion_fk: string } | null> {
+        const showAllUser = await this.prisma.usuarios.findUnique({
+            where:{idUsuario:id},
+            include:{
+                usuario_direccion:true,
+                rol:true,
+                carrito:true
+                
+            }
+        })
+        return showAllUser
+    }
 }
 
-
+ 
 
 export default UsuariosRepository

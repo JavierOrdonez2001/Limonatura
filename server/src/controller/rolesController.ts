@@ -13,8 +13,7 @@ class RolesController{
             res.status(200)
         }catch(err){
             console.error('error al obtener los roles:  ', err)
-            res.status(404)
-            res.json({message:"error al obtener los Roles"})
+            res.status(404).json({message:"error al obtener los Roles"})
         }
     }
 
@@ -26,8 +25,7 @@ class RolesController{
             res.json(getRolById)
         }catch(err){
             console.error('error al crear un usuario', err)
-            res.status(404)
-            res.json({message:"error al crear un usuario"})
+            res.status(404).json({message:"error al crear un usuario"})
         }
     }
 
@@ -43,8 +41,7 @@ class RolesController{
             res.json(newRol)
         }catch(err){
             console.error('Error al crear un usuario: ', err)
-            res.status(404)
-            res.json({message:'error al crear un usuario'})
+            res.status(404).json({message:'error al crear un usuario'})
         }
     }
 
@@ -56,8 +53,7 @@ class RolesController{
             res.json(rolRemoved)
         }catch(err){
             console.error('error al eliminar un rol: ', err)
-            res.status(404)
-            res.json({message:"error al eliminar un rol"})
+            res.status(404).json({message:"error al eliminar un rol"})
         }
     }
 
@@ -74,8 +70,7 @@ class RolesController{
             res.json(rolUpdated)
         }catch(err){
             console.log('error al actualizar un rol: ', err)
-            res.status(404)
-            res.json({message:"error al actualizar un rol"})
+            res.status(404).json({message:"error al actualizar un rol"})
         }
     }
 
