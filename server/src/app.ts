@@ -34,13 +34,16 @@ const PORT = process.env.PORT
 const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cors());
+app.use(cors({
+    origin:'http://localhost:5173/',
+    credentials:true
+}));
 
 
 
 // configuracion para los roles
 const rolesRespository = new RolesRepository()
-const rolesService = new RolesService(rolesRespository, rolesRespository, rolesRespository)
+const rolesService = new RolesService(rolesRespository, rolesRespository, rolesRespository,rolesRespository)
 const rolesController = new RolesController(rolesService)
 const rolesRoutes = new RolesRoutes(rolesController)
 app.use('/rolesmanagment', rolesRoutes.router )

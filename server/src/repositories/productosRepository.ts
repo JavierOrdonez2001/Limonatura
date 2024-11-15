@@ -8,7 +8,7 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         this.prisma = new PrismaClient
     }
 
-    public async create(item: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso:number | null; }> {
+    public async create(item: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null;   }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso:number | null; imagen:string | null; }> {
         const newProducto = await this.prisma.productos.create({
             data:{
                 idProducto:item.idProducto,
@@ -17,17 +17,20 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
                 precio:item.precio,
                 stock:item.stock,
                 peso:item.peso,
+                imagen:item.imagen
+                
+              
             }            
         })
         return newProducto
     }
 
-    public async findAll(): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; }[]> {
+    public async findAll(): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null; }[]> {
         const productos = await this.prisma.productos.findMany()
         return productos
     }
 
-    public async findOne(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  } | null> {
+    public async findOne(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null;  } | null> {
         const productoById = await this.prisma.productos.findUnique({
             where:{
                 idProducto:id
@@ -36,7 +39,7 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         return productoById
     }
 
-    public async delete(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; } | null> {
+    public async delete(id: string): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null; } | null> {
         const deletedProducto = await this.prisma.productos.delete({
             where:{
                 idProducto:id
@@ -45,7 +48,7 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
         return deletedProducto
     }
 
-    public async update(id: string, items: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null;  }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; }> {
+    public async update(id: string, items: { idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null;  }): Promise<{ idProducto: string;  tipo: string; descripcion: string; precio: Decimal; stock: number; peso: number | null; imagen:string | null }> {
         const updatedProducto = await this.prisma.productos.update({
             where:{
                 idProducto:id
@@ -57,6 +60,7 @@ class ProductosRepository implements IcreateActions<Productos>, IreadActions<Pro
                 precio:items.precio,
                 stock:items.stock,
                 peso:items.peso,
+                imagen:items.imagen
             }
         })
         return updatedProducto

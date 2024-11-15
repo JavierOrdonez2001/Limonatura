@@ -1,7 +1,8 @@
 import {IcreateActions, IupdateActions, IreadActions} from '../interfaces/CRUDinterface.js'
+import { IshowRolByName } from '../interfaces/rolesInterface.js'
 import {PrismaClient, Roles} from '@prisma/client'
 
-class RolesRepository implements IcreateActions<Roles>, IupdateActions<Roles>, IreadActions<Roles>{
+class RolesRepository implements IcreateActions<Roles>, IupdateActions<Roles>, IreadActions<Roles>, IshowRolByName<Roles>{
     private prisma:PrismaClient
     constructor(){
         this.prisma = new PrismaClient
@@ -52,6 +53,13 @@ class RolesRepository implements IcreateActions<Roles>, IupdateActions<Roles>, I
         }
        })
        return updateRol
+   }
+
+   public async showRolByName(name: string): Promise<{ idRol: string; rol: string } | null> {
+       const rolName = await this.prisma.roles.findUnique({
+        where:{rol:name}
+       })
+       return rolName
    }
 
 }

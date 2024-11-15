@@ -15,6 +15,7 @@ class RolesRoutes{
         this.router.post('/roles/post/create', (req, res) => this.rolesController.createRol(req, res))
         this.router.delete('/roles/delete/byId/:id', (req, res) => this.rolesController.deleteRol(req, res))
         this.router.put('/roles/put/byId/:id', (req, res) => this.rolesController.updateRol(req, res))
+        this.router.get('/roles/get/nameByName/:name', (req, res) => this.rolesController.showRolByName(req, res))
     }
 }
 

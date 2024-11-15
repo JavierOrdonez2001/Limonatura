@@ -1,4 +1,5 @@
 import { IreadActions, IcreateActions, IupdateActions } from "../interfaces/CRUDinterface.js";
+import { IshowRolByName } from "../interfaces/rolesInterface.js";
 import { Roles } from "@prisma/client";
 
 
@@ -8,7 +9,8 @@ class RolesService{
     constructor(
         private readRepo: IreadActions<Roles>,
         private createRepo: IcreateActions<Roles>,
-        private updateRepo: IupdateActions<Roles>
+        private updateRepo: IupdateActions<Roles>,
+        private showRolByNameRepo: IshowRolByName<Roles>
     ){} 
 
     public async createRole(item:Roles){
@@ -29,6 +31,10 @@ class RolesService{
 
     public async deleteRole(id:string){
         return this.updateRepo.delete(id)
+    }
+
+    public async showRolByName(name:string){
+        return this.showRolByNameRepo.showRolByName(name)
     }
 }
 

@@ -60,5 +60,6 @@ model Productos {
   precio            Decimal   @default(0.00)
   stock             Int
   peso              Int?
+  imagen            String?
   carrito           Carrito[]
 }

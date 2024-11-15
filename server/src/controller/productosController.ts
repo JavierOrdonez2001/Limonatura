@@ -6,7 +6,7 @@ class ProductoController{
 
     public async createProducto(req:Request, res:Response){
         try{
-            const {tipo, descripcion, precio, stock, peso,id_carrito_fk} = req.body
+            const {tipo, descripcion, precio, stock, peso,imagen ,id_carrito_fk} = req.body
             let item = {
                 idProducto:uuidv4(),
                 tipo:tipo,
@@ -14,6 +14,7 @@ class ProductoController{
                 precio:precio,
                 stock:stock,
                 peso:peso,
+                imagen:imagen,
                 id_carrito_fk:id_carrito_fk
             }
             const newProducto = await this.preductosService.createProductos(item)
@@ -51,7 +52,7 @@ class ProductoController{
     public async updateProducto(req:Request, res:Response){
         try{
             const id = req.params.id
-            const {tipo, descripcion, precio, stock, peso, id_carrito_fk} = req.body
+            const {tipo, descripcion, precio, stock, peso,imagen , id_carrito_fk} = req.body
             let item = {
                 idProducto:id,
                 tipo:tipo,
@@ -59,6 +60,7 @@ class ProductoController{
                 precio:precio,
                 stock:stock,
                 peso:peso,
+                imagen:imagen,
                 id_carrito_fk:id_carrito_fk
             }
             const updatedProducto = await this.preductosService.updateProductos(id,item)

@@ -1,4 +1,4 @@
-import e, {Request, Response} from "express"
+import  {Request, Response} from "express"
 import UsuariosService from "../service/usuariosService.js"
 import {v4 as uuidv4} from "uuid"
 import bcrypt from 'bcryptjs';
@@ -25,7 +25,7 @@ class UsuarioController{
             res.json(newUser)
         }catch(err){
             console.error('error al crear un usuario: ', err)
-            res.status(404).json({message:"error al crear un usuario"})
+            res.status(404).json({message:"error al crear un usuario o usuario ya existente"})
         }
     }
 

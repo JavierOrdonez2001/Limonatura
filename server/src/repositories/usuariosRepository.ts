@@ -1,5 +1,5 @@
 import {IcreateActions,IreadActions,IupdateActions} from "../interfaces/CRUDinterface.js"
-import { IshowAllUser } from "../interfaces/usuarioInterface.js"
+import { IshowAllUser, IloginUser } from "../interfaces/usuarioInterface.js"
 import { PrismaClient, Usuarios } from "@prisma/client"
 
 
@@ -79,7 +79,11 @@ class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuar
         })
         return showAllUser
     }
+
+
 }
+
+
 
  
 

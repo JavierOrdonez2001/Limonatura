@@ -74,6 +74,17 @@ class RolesController{
         }
     }
 
+    public async showRolByName(req:Request, res:Response){
+        try{
+            const rolName = req.params.name
+            const rolInfo = await this.roleService.showRolByName(rolName)
+            res.status(200).json(rolInfo)
+        }catch(err){
+            console.error("error al obtener el rol: ", err)
+            res.status(404).json({message:"error al obtener un rol"})
+        }
+    }
+
 }
 
 export default RolesController
