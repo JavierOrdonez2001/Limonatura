@@ -66,7 +66,7 @@ const usuarioService = new UsuariosService( usuarioRepository,
                                             usuarioRepository, 
                                             usuarioRepository)
 const usuarioController = new UsuarioController(usuarioService)
-const usuarioRouter = new UsuarioRouter(usuarioController)
+const usuarioRouter = new UsuarioRouter(usuarioController, auth)
 app.use('/usuarioManagment', usuarioRouter.router)
 
 // configuracion para carrito
