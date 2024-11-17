@@ -99,6 +99,17 @@ class UsuarioController{
             res.status(404).json({message:"error al obtener el usuario"})
         }
     }
+
+    public async login(req:Request, res:Response){
+        try{
+            const {email, password} = req.body        
+            const {user, token} = await this.usuarioService.login(email, password)
+            res.status(200).json({user,token})
+        }catch(err){
+            console.error('error al iniciar sesion')
+            res.status(404).json({message:"error al iniciar sesion"})
+        }
+    }
 }
 
 export default UsuarioController

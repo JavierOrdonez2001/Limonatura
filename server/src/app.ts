@@ -2,6 +2,7 @@ import {config} from 'dotenv'
 import express from 'express'
 import morgan  from 'morgan'
 import cors from 'cors';
+import Auth from './middleware/auth.js';
 
 // -------------------------------------------------------------
 import RolesRoutes from './routes/roles.routes.js'
@@ -40,6 +41,8 @@ app.use(cors({
 }));
 
 
+//middleware de autenticacion
+const auth = new Auth()
 
 // configuracion para los roles
 const rolesRespository = new RolesRepository()
@@ -57,7 +60,11 @@ app.use('/direccionesManagment', direccionRouter.router)
 
 //configuracion para los usuarios
 const usuarioRepository = new UsuariosRepository()
-const usuarioService = new UsuariosService(usuarioRepository, usuarioRepository, usuarioRepository, usuarioRepository)
+const usuarioService = new UsuariosService( usuarioRepository, 
+                                            usuarioRepository, 
+                                            usuarioRepository, 
+                                            usuarioRepository, 
+                                            usuarioRepository)
 const usuarioController = new UsuarioController(usuarioService)
 const usuarioRouter = new UsuarioRouter(usuarioController)
 app.use('/usuarioManagment', usuarioRouter.router)
@@ -73,7 +80,7 @@ app.use('/carritoManagment', carritoRouter.router)
 const productoRepository = new ProductosRepository()
 const productoService = new ProductosService(productoRepository, productoRepository, productoRepository)
 const productoController = new ProductoController(productoService)
-const productoRouter = new ProductoRouter(productoController)
+const productoRouter = new ProductoRouter(productoController, auth)
 app.use('/productoManagment', productoRouter.router)
 
 

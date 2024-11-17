@@ -6,6 +6,6 @@ export interface IshowAllUser<T>{
 
 
 
-export interface IloginUser{
-    login(email:string, password:string): Promise<boolean>;
+export interface IloginUser<T>{
+    login(email:string, password:string): Promise<{user:T | null; token:string | null;}> ;
 }

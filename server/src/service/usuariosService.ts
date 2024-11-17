@@ -1,5 +1,5 @@
 import {IcreateActions,IreadActions,IupdateActions} from "../interfaces/CRUDinterface.js"
-import {IshowAllUser} from "../interfaces/usuarioInterface.js"
+import {IshowAllUser, IloginUser} from "../interfaces/usuarioInterface.js"
 import {Usuarios} from "@prisma/client"
 
 class UsuariosService{
@@ -7,7 +7,8 @@ class UsuariosService{
         private readRepo: IreadActions<Usuarios>,
         private createRepo: IcreateActions<Usuarios>,
         private updateRepo: IupdateActions<Usuarios>,
-        private showAllUserRepo: IshowAllUser<Usuarios>
+        private showAllUserRepo: IshowAllUser<Usuarios>,
+        private loginUser: IloginUser<Usuarios>
     ){}
 
     public async createUsuarios(item:Usuarios){
@@ -32,6 +33,10 @@ class UsuariosService{
 
     public async showAllUser(id:string){
         return this.showAllUserRepo.showAllUser(id)
+    }
+
+    public async login(email:string, password:string){
+        return this.loginUser.login(email, password)
     }
 }
  

@@ -1,9 +1,12 @@
 import {IcreateActions,IreadActions,IupdateActions} from "../interfaces/CRUDinterface.js"
 import { IshowAllUser, IloginUser } from "../interfaces/usuarioInterface.js"
 import { PrismaClient, Usuarios } from "@prisma/client"
+import jwt from "jsonwebtoken"
+import bcrypt from 'bcryptjs'
 
 
-class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuarios>, IupdateActions<Usuarios>, IshowAllUser<Usuarios>{
+
+class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuarios>, IupdateActions<Usuarios>, IshowAllUser<Usuarios>, IloginUser<Usuarios>{
     private prisma:PrismaClient
     constructor(){
         this.prisma = new PrismaClient
@@ -80,9 +83,23 @@ class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuar
         return showAllUser
     }
 
+    public async login(email: string, password: string): Promise<{ user: { idUsuario: string; nombre: string; rut: string; email: string; password: string; telefono: string; id_rol_fk: string; id_direccion_fk: string } | null; token: string | null }> {
+        const user = await this.prisma.usuarios.findUnique({
+            where:{email}
+        })  
+        if(user && await bcrypt.compare(password, user.password)){
+            const token = jwt.sign(
+                {idUser:user.idUsuario},
+                process.env.SECRET_KEY!,
+                {expiresIn:'1h'}
+            )
+            return {user, token}
+        }
+        return {user:null, token:null}
+    }
+
 
 }
-
 
 
  
