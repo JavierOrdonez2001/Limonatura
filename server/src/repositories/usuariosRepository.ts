@@ -85,7 +85,8 @@ class UsuariosRepository implements IcreateActions<Usuarios>, IreadActions<Usuar
 
     public async login(email: string, password: string): Promise<{ user: { idUsuario: string; nombre: string; rut: string; email: string; password: string; telefono: string; id_rol_fk: string; id_direccion_fk: string } | null; token: string | null }> {
         const user = await this.prisma.usuarios.findUnique({
-            where:{email}
+            where:{email},
+            include:{rol:true}
         })  
         if(user && await bcrypt.compare(password, user.password)){
             const token = jwt.sign(
