@@ -40,7 +40,6 @@ app.use(cors({
     credentials:true
 }));
 
-
 //middleware de autenticacion
 const auth = new Auth()
 
